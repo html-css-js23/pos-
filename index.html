@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .product {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #ccc;
+    }
+    .product-name {
+        flex: 1;
+    }
+</style>
+<title>Point of Sale</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Point of Sale</h1>
+        <div class="product-list">
+            <div class="product">
+                <span class="product-name">Product 1</span>
+                <span class="product-price">$10</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product">
+                <span class="product-name">Product 2</span>
+                <span class="product-price">$15</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+        <h2>Cart</h2>
+        <ul class="cart-list"></ul>
+        <p>Total: $<span id="total">0</span></p>
+    </div>
+
+    <script>
+        const products = [
+            { name: "Product 1", price: 10 },
+            { name: "Product 2", price: 15 }
+        ];
+
+        const cart = [];
+
+        const productElements = document.querySelectorAll('.product');
+        const cartList = document.querySelector('.cart-list');
+        const totalElement = document.getElementById('total');
+
+        productElements.forEach((productElement, index) => {
+            productElement.querySelector('.add-to-cart').addEventListener('click', () => {
+                cart.push(products[index]);
+                updateCart();
+            });
+        });
+
+        function updateCart() {
+            cartList.innerHTML = '';
+            let total = 0;
+            cart.forEach(product => {
+                const cartItem = document.createElement('li');
+                cartItem.textContent = `${product.name} - $${product.price}`;
+                cartList.appendChild(cartItem);
+                total += product.price;
+            });
+            totalElement.textContent = total;
+        }
+    </script>
+</body>
+</html>
